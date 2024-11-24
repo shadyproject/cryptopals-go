@@ -45,6 +45,26 @@ func TestSet1Challenge2(t *testing.T) {
 	}
 }
 
+func TestSet1Challenge3(t *testing.T) {
+	cipherTextHex := "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
+	cipherText, err := hex.DecodeString(cipherTextHex)
+	failIfError(t, err)
+
+	expectedPlainText := "Cooking MC's like a pound of bacon"
+	expectedKey := byte(88)
+
+	key, plaintext := breakSingleCharacterXor(cipherText)
+
+	if key != expectedKey {
+		t.Fatalf("wanted key %v, got key %v", expectedKey, key)
+	}
+
+	if plaintext != expectedPlainText {
+		t.Fatalf("wanted plaintext: %q\ngot plaintext: %q", expectedPlainText, plaintext)
+	}
+
+}
+
 func failIfError(t *testing.T, err error) {
 	if err != nil {
 		fmt.Printf("FAIL: want no error, got error: %v\n%s", err, string(debug.Stack()))
