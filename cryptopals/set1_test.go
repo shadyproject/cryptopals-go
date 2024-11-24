@@ -65,6 +65,16 @@ func TestSet1Challenge3(t *testing.T) {
 
 }
 
+func TestSet1Challenge4(t *testing.T) {
+	expectedPlainText := "Now that the party is jumping\n"
+
+	plainText, _, _ := findEncrypted()
+
+	if plainText != expectedPlainText {
+		t.Fatalf("Wanted plaintext %v, got plaintext %v", expectedPlainText, plainText)
+	}
+}
+
 func failIfError(t *testing.T, err error) {
 	if err != nil {
 		fmt.Printf("FAIL: want no error, got error: %v\n%s", err, string(debug.Stack()))
